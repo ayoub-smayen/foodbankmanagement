@@ -1,17 +1,80 @@
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+
+pre {
+  padding: 25px;
+  background-color: silver;
+  color: black;
+  font-size: 25px;
+}
+
+.dark-mode {
+  background-color: #000080;
+  color: white;
+
+ text-shadow: 1px 1px 2px gold;
+}
+
+  </style>
+
+
+<script>
+function myFunction() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
+</script>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
+<button onclick="myFunction()">
+<i class="fa fa-toggle-on" aria-hidden="true"></i>
+</button>
+         <div class="dropdown">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+      <i class="fa fa-align-justify" style="font-size:24px;color:red"></i>
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="https://sitesgeneral.netlify.app/" target="_blank">Chat  here </a>
+      <a class="dropdown-item" href="https://azerty147.netlify.app/" target="_blank">social media</a>
+         <a class="dropdown-item" href="https://shrouded-peak-88216.herokuapp.com/" target="_blank">chat
+<i class="fa fa-send" style="font-size:24px;color:gold"></i>
+         </a>
+      <a class="dropdown-item-text" href="https://socialreciper.netlify.app/">Recipere</a>
+
+        <a class="dropdown-item-text" href="https://calm-wave-93292.herokuapp.com/" target="_blank">
+            Lumen
+        </a>
+        <a class="dropdown-item-text" href="https://gameflappyball.netlify.app/" target="_blank">
+            Game
+        </a>
+      <span class="dropdown-item-text">Services </span>
+    </div>
+  </div>
     <a class="navbar-brand" href="{% url 'home' %}">Food Bank</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
             aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'home' %}">Home
+                    <a class="nav-link" href="{% url 'home' %}">
+                        <i class="fa fa-home">
+
+                        </i>
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
+
+
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'my_posts' %}">Dashboard</a>

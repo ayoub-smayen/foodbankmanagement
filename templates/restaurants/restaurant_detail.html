@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.css"><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" /><link href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0/css/froala_style.min.css" rel="stylesheet" type="text/css" />
+
+
 {% load humanize %}
 {% block title %}{{ block.super }}| {{ object.title }}{% endblock title %}
 {% block content %}
@@ -22,44 +25,44 @@
         <hr>
 
         <!-- Preview Image -->
-        <img class="img-fluid rounded" src="{{ object.image.url }}" alt="{{ object.title }}">
+        <img class="img-fluid rounded w3-grayscale-min" src="{{ object.image.url }}" alt="{{ object.title }}">
         <hr>
 
         <!-- Post Content -->
         <p class="lead">{{ object.details }}</p>
-        <table class="table table-bordered">
+        <table class="table table-bordered" >
             <tbody>
                 <tr>
                     <td>Platter</td>
-                    <td>{{ object.title }}</td>
+                    <td  class="w3-tag w3-jumbo w3-yellow">{{ object.title }}</td>
                 </tr>
                 <tr>
                     <td>Category:</td>
-                    <td>
+                    <td class="w3-tag w3-jumbo w3-yellow">
                         {% for cat in object.get_categories %}
                         <a href="/?cat={{ cat }}">{{ cat }}</a>
                         {% endfor %}
                     </td>
                 </tr>
                 <tr>
-                    <td>Location</td>
-                    <td>{{ object.location }}</td>
+                    <td >Location</td>
+                    <td class="w3-tag w3-jumbo w3-red" >{{ object.location }}</td>
                 </tr>
                 <tr>
                     <td>Price</td>
-                    <td>{{ object.price }} Taka, Vat {{ object.vat }}%</td>
+                    <td class="w3-tag w3-jumbo w3-red">{{ object.price }} Taka, Vat {{ object.vat }}%</td>
                 </tr>
                 <tr>
                     <td>Persons</td>
-                    <td>{{ object.persons }}</td>
+                    <td class="w3-tag w3-jumbo w3-red">{{ object.persons }}</td>
                 </tr>
                 <tr>
                     <td>Taste</td>
-                    <td>{{ object.taste }} out of 10</td>
+                    <td class="w3-tag w3-jumbo w3-red" >{{ object.taste }} out of 10</td>
                 </tr>
                 <tr>
                     <td>Likes</td>
-                    <td>{{ object.likes_count }}</td>
+                    <td class="w3-tag w3-jumbo w3-red">{{ object.likes_count }}</td>
                 </tr>
             </tbody>
         </table>
@@ -74,27 +77,87 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <input type="hidden" name='slug' value="{{ object.slug }}">
-                        <textarea name="comment" class="form-control" rows="3" required></textarea>
+
+
+
+
+                        <textarea name="comment"  id="froala-editor" class="form-control" rows="3" required></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
 
-        <!-- Single Comment -->
-
+        <!-- Single Comment id="emojionearea1  -->
+  <input class="w3-input w3-border w3-padding" type="text" placeholder="Search for recipes " id="myInput" onkeyup="myFunction()">
         {% if object.comments.all %}
         {% for comment in object.comments.all %}
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle comment_pic" src="{{ comment.user.profile.image.url }}" alt="Image">
+        <div class="media mb-4" id="myDIV">
+            <img class="d-flex mr-3 rounded-circle comment_pic" src="{{ comment.user.profile.image.url }}" alt="Image" height="85" width="85">
             <div class="media-body">
-                <h5 class="mt-0">{{ comment.user.get_full_name }}</h5>
-                <p>{{ comment.text }}<br>
-                    <small><i class="far fa-clock"></i>&nbsp{{ comment.created_at }}</small>
+                <h5 class="mt-0 w3-container w3-flat-emerald">{{ comment.user.get_full_name }}</h5>
+                {{comment.text|safe}}
+                <p style="font-size:25px" class="w3-theme-l4">{{ comment.text|safe }}<br>
+                    <small class="w3-text-blue"><i class="far fa-clock"></i>&nbsp{{ comment.created_at }}</small>
                 </p>
             </div>
         </div>
         {% endfor %}
         {% endif %}
     </div>
+
+    <script>
+    tinymce.init({
+  selector: "#froala-editor",
+  plugins: "emoticons autoresize",
+  toolbar: "emoticons",
+  toolbar_location: "bottom",
+  menubar: false,
+  statusbar: false
+});
+        $(document).ready(function() {
+	$("#emojionearea1").emojioneArea({
+
+		pickerPosition: "right",
+    tonesStyle: "bullet",
+		events: {
+         	keyup: function (editor, event) {d
+           		console.log(editor.html());
+           		console.log(this.getText());
+        	}
+    	}
+	});
+
+     $('#divOutside').click(function () {
+                $('.emojionearea-button').click()
+            })
+
+
+});
+
+$('#lala').click(function () {
+alert($("#emojionearea1").val());
+ $("#nnnnn").append($("#emojionearea1").val());
+})
+    </script>
+
+<script src="https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/5/tinymce.min.js">
+</script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-indigo.css">
+    <script>
+
+    $(document).ready(function() {
+
+  $('textarea#froala-editor').froalaEditor()
+});
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+
+</script>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/codemirror.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.25.0/mode/xml/xml.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.6.0//js/froala_editor.pkgd.min.js"></script>
+
+
     {% endblock content %}
