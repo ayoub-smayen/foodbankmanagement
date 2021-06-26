@@ -1,1 +1,1 @@
-web:python  manage.py runserver 8082
+web: gunicorn locallibrary.wsgi --log-file -
